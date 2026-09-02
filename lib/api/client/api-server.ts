@@ -3,7 +3,7 @@ import { COMMON_ERROR_MESSAGES, UNAUTHORIZED_ERROR_MESSAGES } from "@/constants/
 import { CREATED_MESSAGES, OK_MESSAGES } from "@/constants/success-messages.constants";
 import { AUTH_ENDPOINTS } from "@/lib/endpoints";
 import { useAuthStore } from "@/lib/store/authStore";
-import { redirectToPage } from "@/utils/routes.utils";
+import { pageReload, redirectToPage } from "@/utils/routes.utils";
 import axios from "axios";
 import { ReactNode } from "react";
 
@@ -35,6 +35,11 @@ apiServer.interceptors.response.use(
               if (data?.message === OK_MESSAGES.VERIFIED) {
                   useAuthStore.setState({ isLogged: true, userId: data?.data?.userId });
               }
+
+              if (reloadMessages.includes(data?.message)) {
+                pageReload(1000);
+              }
+
               if (redirectMessages.includes(data?.message)) {
                 setTimeout(() => {
                   redirectToPage(data?.message);
