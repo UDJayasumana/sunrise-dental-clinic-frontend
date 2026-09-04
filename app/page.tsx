@@ -1,6 +1,7 @@
 "use client";
 
 
+import AppointmentButton from "@/components/controls/appointment-button";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -8,9 +9,9 @@ import { useEffect } from "react";
 export default function HomePage() {
   const router = useRouter();
 
-  // const handleNoteClick = () => {
-  //   router.push(`/notes`);
-  // };
+  const handleAppointmentClick = () => {
+    router.push(`/appointments`);
+  };
 
   return (
     <Box>
@@ -33,6 +34,22 @@ export default function HomePage() {
         >
           Recent Appointments
         </Typography>
+      </Box>
+
+
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <AppointmentButton
+          text="Go To Appointment"
+          sx={{
+            width: { xs: 210, sm: 240, md: 270 },
+            height: { xs: 55, sm: 55, md: 55 },
+            mt: 5,
+            fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+          }}
+          onClick={handleAppointmentClick}
+        />
       </Box>
       
     </Box>
