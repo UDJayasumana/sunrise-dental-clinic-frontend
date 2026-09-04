@@ -31,7 +31,7 @@ export default function HomePage() {
             fontWeight: 800,
           }}
         >
-          Recent Notes
+          Recent Appointments
         </Typography>
       </Box>
       
