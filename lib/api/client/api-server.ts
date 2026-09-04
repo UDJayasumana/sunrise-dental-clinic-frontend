@@ -83,7 +83,7 @@ apiServer.interceptors.response.use(
           }
 
           if (refreshMessages.includes(backendMessage)) {
-            apiServer.post(AUTH_ENDPOINTS.auth.refresh);
+            apiServer.get(AUTH_ENDPOINTS.auth.refresh);
           }
 
           if (logoutAndRedirectMessages.includes(backendMessage)) {
