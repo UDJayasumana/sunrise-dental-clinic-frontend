@@ -20,7 +20,7 @@ apiServer.interceptors.response.use(
     (res) =>{
         const method = res.config.method?.toLowerCase();
         const data = res.data;
-        if (["post", "put", "patch", "delete"].includes(method)){
+        if (["post", "get", "put", "patch", "delete"].includes(method)){
             const reloadMessages = [
                 OK_MESSAGES.TOKENS_REFRESHED,
                 OK_MESSAGES.LOGIN_SUCCESS,
@@ -33,9 +33,10 @@ apiServer.interceptors.response.use(
 
               //Update user login state
               if (data?.message === OK_MESSAGES.VERIFIED) {
+                  console.log({ isLogged: true, userId: data?.data?.userId });
                   useAuthStore.setState({ isLogged: true, userId: data?.data?.userId });
               }
-
+              
               if (reloadMessages.includes(data?.message)) {
                 pageReload(1000);
               }
