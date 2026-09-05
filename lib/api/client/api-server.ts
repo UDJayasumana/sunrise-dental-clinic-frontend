@@ -29,7 +29,8 @@ apiServer.interceptors.response.use(
 
               const redirectMessages = [
                 CREATED_MESSAGES.REGISTER_SUCCESS,
-                CREATED_MESSAGES.APPOINTMENT_CREATED_SUCCESS
+                CREATED_MESSAGES.APPOINTMENT_CREATED_SUCCESS,
+                OK_MESSAGES.APPOINTMENT_UPDATED_SUCCESS
               ];
 
               //Update user login state

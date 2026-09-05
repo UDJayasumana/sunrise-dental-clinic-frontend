@@ -42,7 +42,7 @@ const AppointmentsPage = () => {
   };
 
   const handleViewAppointment = (appoNum: string) => {
-    route.push(`/appointments/${appoNum}`);
+    route.push(`/appointments/${appoNum}/bill`);
   };
 
   const handleDeleteAppointment = (appoNum: string) => {
