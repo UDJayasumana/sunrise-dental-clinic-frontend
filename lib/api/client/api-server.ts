@@ -24,7 +24,8 @@ apiServer.interceptors.response.use(
             const reloadMessages = [
                 OK_MESSAGES.TOKENS_REFRESHED,
                 OK_MESSAGES.LOGIN_SUCCESS,
-                OK_MESSAGES.LOGOUT_SUCCESS
+                OK_MESSAGES.LOGOUT_SUCCESS,
+                OK_MESSAGES.APPOINTMENT_DELETED_SUCCESS
               ];
 
               const redirectMessages = [

@@ -20,7 +20,11 @@ interface AppointmentState{
 
     loadingUpdateAppointment: boolean;
     errorUpdateAppointment: string | null;
-    updateAppointmentByAppoNum: (noteId: string, data: AppointmentFormValues) => Promise<void>;
+    updateAppointmentByAppoNum: (appoNum: string, data: AppointmentFormValues) => Promise<void>;
+
+    loadingDeleteAppointment: boolean;
+    errorDeleteAppointment: string | null;
+    deleteAppointmentByAppoNum: (appoNum: string) => Promise<void>;
 
      loadingAppointments: boolean,
      errorAppointments: string | null,
@@ -46,6 +50,10 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
 
     loadingUpdateAppointment: false,
     errorUpdateAppointment: null,
+
+    loadingDeleteAppointment: false,
+    errorDeleteAppointment: null,
+
 
     fetchAppointmentByAppoNum: async (appoNum = "") => {
         set({ loadingAppointment: true, errorAppointment: null });
@@ -125,6 +133,24 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
           set({
             errorUpdateAppointment: err,
             loadingUpdateAppointment: false,
+          });
+          throw err;
+        }
+      },
+
+      deleteAppointmentByAppoNum: async (appoNum = "") => {
+        set({ loadingDeleteAppointment: true, errorDeleteAppointment: null });
+    
+        try {
+          const res = await apiServer.delete(APPOINTMENT_ENDPOINTS.appointment.byAppoNum(appoNum));
+    
+          if (res?.data?.data) {
+            set({ appointment: null, loadingDeleteAppointment: false });
+          }
+        } catch (err: any) {
+          set({
+            errorDeleteAppointment: err,
+            loadingDeleteAppointment: false,
           });
           throw err;
         }

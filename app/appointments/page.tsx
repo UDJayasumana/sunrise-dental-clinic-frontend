@@ -12,7 +12,7 @@ const AppointmentsPage = () => {
 
   const route = useRouter();
 
-  const { appointmentList, fetchAppointments, appointmentCount} = useAppointmentStore();
+  const { appointmentList, fetchAppointments, deleteAppointmentByAppoNum, appointmentCount} = useAppointmentStore();
 
   // useEffect(()=>{
   //   fetchAppointments({});
@@ -50,8 +50,7 @@ const AppointmentsPage = () => {
   }
 
   const handleDeleteAppointment = (appoNum: string) => {
-    //deleteNoteById(noteId);
-    //console.log(`Note ${noteId} deleted.`);
+    deleteAppointmentByAppoNum(appoNum);
   };
 
   const handleAppointmentList = useCallback(
