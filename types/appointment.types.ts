@@ -21,13 +21,21 @@ export type AppointmentFormValues = {
   }
 
   export enum AppointmentCategory {
-    FILLING = "Filling",
-    NURVING = "Nurving"
+    DENTAL_CLEANINGS = "Dental Cleanings",
+    EXAMINATIONS_AND_XRAY = "Examinations & X-Rays",
+    FLUORIDE_TREATMENTS = "Fluoride Treatments",
+    DENTAL_SEALANTS = "Dental Sealants",
+    FILLINGS = "Fillings",
+    CROWNS = "Crowns",
+    BRIDGES = "Bridges",
+    DENTURES = "Dentures",
+    DENTAL_IMPLANTS = "Dental Implants"
   }
 
   export enum DentistName {
-    DR_ASHOKA_PATHIRANA = "Dr. Ashoka Pathirana",
-    DR_MALINI = "Dr. Malini"
+    DR_ANNESLEY_GOMES = "Dr Annesley Gomes",
+    DR_S_KANAGARAYAN = "Dr S Kanagarayan",
+    DR_E_ANIL_SALGADO = "Dr E Anil Salgado"
   }
 
   export type BackendAppointmentError = {

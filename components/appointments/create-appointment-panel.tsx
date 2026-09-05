@@ -113,7 +113,7 @@ const CreateAppointmentPanel: React.FC<CreateAppointmentPanelProps> = ({onCreate
           <Controller
             name="treatmentType"
             control={control}
-            defaultValue={AppointmentCategory.FILLING} // Optional default value
+            defaultValue={AppointmentCategory.DENTAL_CLEANINGS} // Optional default value
             render={({ field }) => (
               <Select
                 {...field}
@@ -230,7 +230,7 @@ const CreateAppointmentPanel: React.FC<CreateAppointmentPanelProps> = ({onCreate
           <Controller
             name="dentist"
             control={control}
-            defaultValue={DentistName.DR_ASHOKA_PATHIRANA} // Optional default value
+            defaultValue={DentistName.DR_ANNESLEY_GOMES} // Optional default value
             render={({ field }) => (
               <Select
                 {...field}
