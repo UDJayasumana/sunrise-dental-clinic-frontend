@@ -5,19 +5,30 @@ import apiServer from "../api/client/api-server";
 
 interface AppointmentState{
 
+     appointmentList: Array<Appointment> | [];
+
     appointment: Appointment | null;
 
     loadingAppointment: boolean;
-    errorAppointment: any | null;
+    errorAppointment: string | null;
     fetchAppointmentByAppoNum: (appoNum: string) => Promise<void>;
 
     loadingCreateAppointment: boolean;
     errorCreateAppointment: string | null;
     createAppointment: (data: AppointmentFormValues) => Promise<void>;
 
+     loadingAppointments: boolean,
+     errorAppointments: string | null,
+     fetchAppointments: (filters: any) => Promise<void>;
+
 }
 
 export const useAppointmentStore = create<AppointmentState>((set) => ({
+
+   appointmentList: [],
+
+   loadingAppointments: false,
+    errorAppointments: null,
 
     appointment: null,
 
@@ -64,5 +75,30 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
           throw err;
         }
       },
+
+      fetchAppointments:async(filters = {}) => {
+        set({ loadingAppointments: true, errorAppointments: null });
+
+        try{
+          const res = await apiServer.get(APPOINTMENT_ENDPOINTS.appointment.list,{
+            params: filters,
+          });
+          if (res?.data?.data){
+            console.log(res.data.data)
+            const mappedAppointments: Appointment[] = res.data.data;
+            set({
+              appointmentList: mappedAppointments,
+              loadingAppointments: false,
+            });
+          }
+
+        }catch (err: any){
+          console.error("Error fetching appointments:", err);
+          set({
+            errorAppointments: err.message || "Failed to fetch appointments",
+            loadingAppointments: false,
+          });
+        }
+      }
 
 }));
