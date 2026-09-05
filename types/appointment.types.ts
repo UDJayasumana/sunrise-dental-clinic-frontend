@@ -43,3 +43,9 @@ export type AppointmentFormValues = {
     message: string;
     errors?: Partial<Record<keyof AppointmentFormValues, string>>;
   };
+
+  export type AppointmentFilters = {
+    searchTerm?: string;
+    page?: string;
+    rows?: string;
+  }

@@ -1,14 +1,25 @@
+import {
+  Pagination,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { Appointment } from '@/types/appointment.types';
-import { Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import AppointmentFilterPanel from './appointment-filter-panel';
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import AppointmentPanelRow from './appointment-panel-row';
-import { useAppointmentStore } from '@/lib/store/appointmentStore';
+import AppointmentFilterPanel from './appointment-filter-panel';
+
 
 interface AppointmentPanelProps {
     data: Appointment[];
     appointmentCount: number;
-    updatePage: (searchTerm: string) => void;
+    updatePage: (page: number, rows: number, searchTerm: string) => void;
     onNewAppointment: () => void;
     OnViewAppointment: (noteId: string) => void;
     onDeleteAppointment: (noteId: string) => void;
@@ -27,9 +38,6 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
     const [page, setPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
 
-     const { fetchAppointments} = useAppointmentStore();
-
-
 
     const handlePageChange = useCallback(
         (_: React.ChangeEvent<unknown>, value: number) => {
@@ -44,7 +52,7 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
 
       const pageCount = useMemo(() => {
         const pCount = Math.ceil(appointmentCount / rowsPerPage);
-        return pCount;
+        return pCount > 0 ? pCount : 1;
       }, [appointmentCount, rowsPerPage]);
     
       useEffect(() => {
@@ -58,12 +66,13 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
       }, [pageCount, page]);
 
       const handleUpdatePage = useCallback(() => {
-        updatePage(searchTerm);
-      }, [searchTerm, updatePage]);
+        updatePage(page, rowsPerPage, searchTerm);
+      }, [page, rowsPerPage, searchTerm, updatePage]);
     
       useEffect(() => {
         handleUpdatePage();
       }, [handleUpdatePage]);
+
 
   return (
     <Paper
@@ -114,7 +123,7 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
       </TableContainer>
 
       {/* Fixed Footer */}
-      {/* <Stack
+      <Stack
         spacing={2}
         direction="row"
         sx={{ mt: 2, mb: 1 }}
@@ -132,7 +141,7 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
           showFirstButton
           showLastButton
         />
-      </Stack> */}
+      </Stack>
     </Paper>
   )
 
