@@ -17,14 +17,16 @@ import {
   
   interface AppointmentPanelRowProps {
     row: Appointment;
-    onAppointmentView: (appointmentId: string) => void;
-    onAppointmentDelete: (appointmentId: string) => void;
+    onPrintAppointment: (appoNum: string) => void;
+    onEditAppointment: (appoNum: string) => void;
+    onDeleteAppointment: (appoNum: string) => void;
   }
   
   const AppointmentPanelRow: React.FC<AppointmentPanelRowProps> = ({
     row,
-    onAppointmentView,
-    onAppointmentDelete,
+    onPrintAppointment,
+    onEditAppointment,
+    onDeleteAppointment,
   }) => {
     const [open, setOpen] = useState(false);
   
@@ -50,10 +52,13 @@ import {
           <TableCell align="left">{row?.appoDateTime || ""}</TableCell>
           
           <TableCell align="left">
-            <IconButton color="primary" onClick={() => onAppointmentView(row.appoNum)}>
+            <IconButton color="primary" onClick={() => onPrintAppointment(row.appoNum)}>
               <ViewCarousel />
             </IconButton>
-            <IconButton color="primary" onClick={() => onAppointmentDelete(row.appoNum)}>
+            <IconButton color="primary" onClick={() => onEditAppointment(row.appoNum)}>
+              <Edit />
+            </IconButton>
+            <IconButton color="primary" onClick={() => onDeleteAppointment(row.appoNum)}>
               <Delete />
             </IconButton>
           </TableCell>
