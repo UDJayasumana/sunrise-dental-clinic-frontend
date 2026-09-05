@@ -21,8 +21,9 @@ interface AppointmentPanelProps {
     appointmentCount: number;
     updatePage: (page: number, rows: number, searchTerm: string) => void;
     onNewAppointment: () => void;
-    OnViewAppointment: (noteId: string) => void;
-    onDeleteAppointment: (noteId: string) => void;
+    onPrintAppointment: (appoNum: string) => void;
+    onEditAppointment: (appoNum: string) => void;
+    onDeleteAppointment: (appoNum: string) => void;
   }
 
 const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
@@ -30,7 +31,8 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
     appointmentCount,
     updatePage,
     onNewAppointment,
-    OnViewAppointment,
+    onPrintAppointment,
+    onEditAppointment,
     onDeleteAppointment
 }) => {
     const rowsPerPage = 5;
@@ -114,8 +116,9 @@ const AppointmentPanel: React.FC<AppointmentPanelProps> = ({
                 <AppointmentPanelRow
                   key={row.appoNum}
                   row={row}
-                  onAppointmentView={OnViewAppointment}
-                  onAppointmentDelete={onDeleteAppointment}
+                  onPrintAppointment={onPrintAppointment}
+                  onEditAppointment={onEditAppointment}
+                  onDeleteAppointment={onDeleteAppointment}
                 />
               ))}
           </TableBody>

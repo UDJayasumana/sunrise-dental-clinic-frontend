@@ -41,9 +41,13 @@ const AppointmentsPage = () => {
     route.push("/appointments/new");
   };
 
-  const handleViewAppointment = (appoNum: string) => {
-    route.push(`/appointments/${appoNum}`);
+  const handlePrintAppointment = (appoNum: string) => {
+    route.push(`/appointments/${appoNum}/bill`);
   };
+
+  const handleEditAppointment = (appoNum: string) => {
+    route.push(`/appointments/${appoNum}`);
+  }
 
   const handleDeleteAppointment = (appoNum: string) => {
     //deleteNoteById(noteId);
@@ -94,7 +98,8 @@ const AppointmentsPage = () => {
         appointmentCount={appointmentCount}
         updatePage={handleAppointmentList}
         onNewAppointment={handleNewAppointment}
-        OnViewAppointment={handleViewAppointment}
+        onPrintAppointment={handlePrintAppointment}
+        onEditAppointment={handleEditAppointment}
         onDeleteAppointment={handleDeleteAppointment}
       />
     </Box>

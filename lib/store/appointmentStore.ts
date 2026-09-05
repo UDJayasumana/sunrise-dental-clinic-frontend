@@ -18,6 +18,10 @@ interface AppointmentState{
     errorCreateAppointment: string | null;
     createAppointment: (data: AppointmentFormValues) => Promise<void>;
 
+    loadingUpdateAppointment: boolean;
+    errorUpdateAppointment: string | null;
+    updateAppointmentByAppoNum: (noteId: string, data: AppointmentFormValues) => Promise<void>;
+
      loadingAppointments: boolean,
      errorAppointments: string | null,
      fetchAppointments: (filters: any) => Promise<void>;
@@ -39,6 +43,9 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
 
     loadingCreateAppointment: false,
     errorCreateAppointment: null,
+
+    loadingUpdateAppointment: false,
+    errorUpdateAppointment: null,
 
     fetchAppointmentByAppoNum: async (appoNum = "") => {
         set({ loadingAppointment: true, errorAppointment: null });
@@ -102,6 +109,27 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
             loadingAppointments: false,
           });
         }
-      }
+      },
+
+      updateAppointmentByAppoNum: async (appoNum = "", data = {}) => {
+        set({ loadingUpdateAppointment: true, errorUpdateAppointment: null });
+    
+        try {
+          const res = await apiServer.put(APPOINTMENT_ENDPOINTS.appointment.byAppoNum(appoNum), data);
+    
+          if (res?.data?.data) {
+              const mappedAppointment: Appointment = res?.data?.data;
+              set({ appointment: mappedAppointment, loadingUpdateAppointment: false });
+          }
+        } catch (err: any) {
+          set({
+            errorUpdateAppointment: err,
+            loadingUpdateAppointment: false,
+          });
+          throw err;
+        }
+      },
+
+
 
 }));
