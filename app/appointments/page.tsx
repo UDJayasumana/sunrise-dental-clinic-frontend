@@ -2,7 +2,7 @@
 
 import AppointmentPanel from '@/components/appointments/appointment-panel';
 import { useAppointmentStore } from '@/lib/store/appointmentStore';
-import { Appointment, AppointmentCategory, DentistName } from '@/types/appointment.types';
+import { Appointment, AppointmentCategory, AppointmentFilters, DentistName } from '@/types/appointment.types';
 import { Box, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +12,7 @@ const AppointmentsPage = () => {
 
   const route = useRouter();
 
-  const { appointmentList, fetchAppointments} = useAppointmentStore();
+  const { appointmentList, fetchAppointments, appointmentCount} = useAppointmentStore();
 
   // useEffect(()=>{
   //   fetchAppointments({});
@@ -36,7 +36,6 @@ const AppointmentsPage = () => {
   //       appoDateTime: "2026-09-11 04:48:00.000"
 
   // }];
-  const appointmentCount = 1;
 
   const handleNewAppointment = () => {
     route.push("/appointments/new");
@@ -51,9 +50,15 @@ const AppointmentsPage = () => {
     //console.log(`Note ${noteId} deleted.`);
   };
 
-  const handleNoteList = useCallback(
-    async (term: string) => {
-      const filters = {searchTerm: term};
+  const handleAppointmentList = useCallback(
+    async (currentPage: number, rows: number, term: string) => {
+      const filters: AppointmentFilters = {
+        page: currentPage.toString(),
+        rows: rows.toString(),
+      };
+      if (term.trimEnd().length > 0) {
+        filters.searchTerm = term;
+      }
       await fetchAppointments(filters);
     },
     [fetchAppointments]
@@ -87,7 +92,7 @@ const AppointmentsPage = () => {
       <AppointmentPanel
         data={appointmentList}
         appointmentCount={appointmentCount}
-        updatePage={handleNoteList}
+        updatePage={handleAppointmentList}
         onNewAppointment={handleNewAppointment}
         OnViewAppointment={handleViewAppointment}
         onDeleteAppointment={handleDeleteAppointment}

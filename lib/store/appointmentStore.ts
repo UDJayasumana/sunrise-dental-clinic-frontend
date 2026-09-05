@@ -6,6 +6,7 @@ import apiServer from "../api/client/api-server";
 interface AppointmentState{
 
      appointmentList: Array<Appointment> | [];
+     appointmentCount: number;
 
     appointment: Appointment | null;
 
@@ -26,6 +27,7 @@ interface AppointmentState{
 export const useAppointmentStore = create<AppointmentState>((set) => ({
 
    appointmentList: [],
+   appointmentCount: 0,
 
    loadingAppointments: false,
     errorAppointments: null,
@@ -85,10 +87,11 @@ export const useAppointmentStore = create<AppointmentState>((set) => ({
           });
           if (res?.data?.data){
             console.log(res.data.data)
-            const mappedAppointments: Appointment[] = res.data.data;
+            const mappedAppointments: Appointment[] = res.data.data.appointments;
             set({
               appointmentList: mappedAppointments,
               loadingAppointments: false,
+              appointmentCount: res.data.data.totalCount
             });
           }
 
