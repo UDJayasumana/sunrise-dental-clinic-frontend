@@ -26,6 +26,9 @@ export const redirectToPage = (message: string, delay?: number) => {
       case CREATED_MESSAGES.REGISTER_SUCCESS:
         path = "/sign-in";
         break;
+      case CREATED_MESSAGES.APPOINTMENT_CREATED_SUCCESS:
+        path = "/appointments"
+        break;
     }
   
     if (path.trimEnd().length !== 0) {

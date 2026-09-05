@@ -2,9 +2,11 @@
 
 import apiServer from '@/lib/api/client/api-server';
 import { AUTH_ENDPOINTS } from '@/lib/endpoints';
+import { AccountCircle } from "@mui/icons-material";
 import { useAuthStore } from '@/lib/store/authStore';
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
+import { useUserStore } from '@/lib/store/userStore';
 
 interface ResponsiveAppBarProps {
     children: React.ReactNode;
@@ -13,6 +15,7 @@ interface ResponsiveAppBarProps {
 const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
 
   const {userId, isLogged} = useAuthStore();
+  const { user, fetchUserById } = useUserStore();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,6 +32,14 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
     handleClose();
     apiServer.get(AUTH_ENDPOINTS.auth.logout);
   }, [handleClose]);
+
+
+  //Memorize user details fetch handler
+    useEffect(() => {
+      if (isLogged && userId && (!user || user.id !== userId)) {
+        fetchUserById(userId);
+      }
+    }, [isLogged, userId, user?.id, fetchUserById]);
 
   return (
     <>
@@ -65,6 +76,17 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
             {/* Spacer (Desktop only) */}
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }} />
 
+            {/* Username */}
+              <Box>
+              <Typography
+                variant="h5"
+                noWrap
+                component="div"
+                sx={{ mr: 1, fontSize: { xs: 10, sm: 15, md: 18 } }}
+              >
+                {user?.name}
+              </Typography>
+            </Box>
              {/* Profile Icon */}
              <Box>
               <IconButton
@@ -82,7 +104,7 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
                   },
                 }}
               >
-                {/* <AccountCircle /> */}
+                <AccountCircle />
               </IconButton>
 
             <Menu
@@ -114,3 +136,4 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
 }
 
 export default ResponsiveAppBar
+
