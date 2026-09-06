@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import apiServer from '@/lib/api/client/api-server';
 import { AUTH_ENDPOINTS } from '@/lib/endpoints';
-import { SitemarkIcon } from '@/components/icons/custom-Icons';
+import { SunriseIcon } from '@/components/icons/custom-Icons';
 import { Card } from "@/components/common/card";
 
 
@@ -45,7 +45,7 @@ const SignInPage = () => {
       
   return (
     <Card variant="outlined">
-        <SitemarkIcon />
+        <SunriseIcon />
         <Typography
         component="h1"
         variant="h4"

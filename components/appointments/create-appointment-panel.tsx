@@ -6,6 +6,7 @@ import { Box, Button, FormControl, FormLabel, MenuItem, Select, TextField, Typog
 import { AppointmentCategory, AppointmentFormValues, BackendAppointmentError, DentistName } from '@/types/appointment.types';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppointmentStore } from '@/lib/store/appointmentStore';
+import { useRouter } from 'next/navigation';
 
 interface CreateAppointmentPanelProps {
     onCreateAppointment: (data: AppointmentFormValues) => void;
@@ -21,6 +22,11 @@ const CreateAppointmentPanel: React.FC<CreateAppointmentPanelProps> = ({onCreate
     formState: { errors },
   } = useForm<AppointmentFormValues>();
 
+  const route = useRouter();
+
+  const handleClose = () => {
+    route.push("/appointments");
+  }
 
   //Handle form submit
   const onSubmit: SubmitHandler<AppointmentFormValues> = async (data) => {
@@ -251,11 +257,27 @@ const CreateAppointmentPanel: React.FC<CreateAppointmentPanelProps> = ({onCreate
 
 
         {/* Appointment Actions */}
-        <Button type="submit" fullWidth variant="contained">
-          Create
-        </Button>
-  </Box>
+      
+        <Box sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}>
+          <Button 
+            type="button" 
+            fullWidth 
+            variant="outlined" 
+            color="inherit"
+            onClick={handleClose}
+          >
+            Close
+          </Button>
+          <Button 
+            type="submit" 
+            fullWidth 
+            variant="contained"
+          >
+            Create
+          </Button>
+        </Box>
 
+    </Box>
 
     </AppointmentCard>
   )

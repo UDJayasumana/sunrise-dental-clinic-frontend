@@ -59,7 +59,7 @@ import {
               <Edit />
             </IconButton>
             <IconButton color="primary" onClick={() => onDeleteAppointment(row.appoNum)}>
-              <Delete />
+              <Delete color="error" />
             </IconButton>
           </TableCell>
         </TableRow>

@@ -1,6 +1,7 @@
 "use client";
 
 
+import HelpPanel from "@/components/common/help-panel";
 import AppointmentButton from "@/components/controls/appointment-button";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -32,11 +33,15 @@ export default function HomePage() {
             fontWeight: 800,
           }}
         >
-          Recent Appointments
+          Dashboard
         </Typography>
       </Box>
 
-
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <HelpPanel />
+      </Box>
       <Box
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
@@ -45,7 +50,7 @@ export default function HomePage() {
           sx={{
             width: { xs: 210, sm: 240, md: 270 },
             height: { xs: 55, sm: 55, md: 55 },
-            mt: 5,
+            mt: 2,
             fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
           }}
           onClick={handleAppointmentClick}
