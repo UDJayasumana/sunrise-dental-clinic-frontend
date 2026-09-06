@@ -1,4 +1,4 @@
-import SvgIcon from '@mui/material/SvgIcon';
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
 export function SitemarkIcon() {
   return (
@@ -117,3 +117,20 @@ export function GoogleIcon() {
     </SvgIcon>
   );
 }
+
+  export function SunriseIcon(props: SvgIconProps){
+    return(
+      <SvgIcon {...props}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="32"
+          height="32"
+          fill="currentColor"
+          style={{ display: 'block' }}
+        >
+          <path d="M12 2C9.5 2 7.5 3.5 6.8 6.2C5.7 6.6 4.5 7.6 4.1 9C3.5 11 4.2 13.5 5.8 15.2C6.6 16 7 17.1 7 18.3V20C7 21.1 7.9 22 9 22H15C16.1 22 17 21.1 17 20V18.3C17 17.1 17.4 16 18.2 15.2C19.8 13.5 20.5 11 19.9 9C19.5 7.6 18.3 6.6 17.2 6.2C16.5 3.5 14.5 2 12 2M12 4C13.4 4 14.6 5.1 15 6.5C14.4 6.8 13.7 7 13 7.1V5.1C12.7 5 12.3 5 12 5C11.7 5 11.3 5 11 5.1V7.1C10.3 7 9.6 6.8 9 6.5C9.4 5.1 10.6 4 12 4M9 9.1C10 9.4 11 9.5 12 9.5S14 9.4 15 9.1C16.1 9.4 17 10.6 17.3 11.8C17.7 13.2 17.2 15 15.9 16.3C15.2 17 14.9 17.8 14.9 18.7V20H9.1V18.7C9.1 17.8 8.8 17 8.1 16.3C6.8 15 6.3 13.2 6.7 11.8C7 10.6 7.9 9.4 9 9.1Z" />
+        </svg>
+      </SvgIcon>
+    )
+  }

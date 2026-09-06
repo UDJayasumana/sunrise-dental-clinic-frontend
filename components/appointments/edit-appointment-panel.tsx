@@ -1,8 +1,11 @@
+"use client";
+
 import { Appointment, AppointmentCategory, AppointmentFormValues, BackendAppointmentError, DentistName } from '@/types/appointment.types';
 import React, { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { AppointmentCard } from './appointment-card';
 import { Box, Button, FormControl, FormLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 interface EditAppointmentPanelProps {
     appointmentId: string | undefined;
@@ -26,6 +29,12 @@ const EditAppointmentPanel: React.FC<EditAppointmentPanelProps>  = ({
         reset,
         formState: { errors },
       } = useForm<AppointmentFormValues>();
+
+        const route = useRouter();
+      
+        const handleClose = () => {
+          route.push("/appointments");
+        }
 
       //Handle form submit
         const onSubmit: SubmitHandler<AppointmentFormValues> = async (data) => {
@@ -277,9 +286,24 @@ const EditAppointmentPanel: React.FC<EditAppointmentPanelProps>  = ({
         </FormControl>
             
         {/* Appointment Actions */}
-        <Button type="submit" fullWidth variant="contained">
-          Update
-        </Button>
+        <Box sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}>
+            <Button 
+                type="button" 
+                fullWidth 
+                variant="outlined" 
+                color="inherit"
+                onClick={handleClose}
+              >
+                Close
+            </Button>
+            <Button 
+                type="submit" 
+                fullWidth 
+                variant="contained"
+              >
+                 Update
+            </Button>
+        </Box>
 
       </Box>
     </AppointmentCard>

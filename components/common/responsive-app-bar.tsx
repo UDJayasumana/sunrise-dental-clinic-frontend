@@ -7,6 +7,8 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useUserStore } from '@/lib/store/userStore';
+import { SunriseIcon } from '../icons/custom-Icons';
+import { useRouter } from 'next/navigation';
 
 interface ResponsiveAppBarProps {
     children: React.ReactNode;
@@ -18,6 +20,8 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
   const { user, fetchUserById } = useUserStore();
 
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const route = useRouter();
 
   //Memoized mouse event handlers
   const handleMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
@@ -32,6 +36,10 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
     handleClose();
     apiServer.get(AUTH_ENDPOINTS.auth.logout);
   }, [handleClose]);
+
+  const handleHome = () =>{
+    route.push("/");
+  }
 
 
   //Memorize user details fetch handler
@@ -52,26 +60,60 @@ const ResponsiveAppBar:React.FC<ResponsiveAppBarProps> = ({children}) => {
       >
  <Container maxWidth="xl">
           <Toolbar disableGutters>
-            {/* Desktop Logo */}
-            <Typography
-              variant="h5"
-              noWrap
-              component="div"
-              sx={{ ml: 2, display: { xs: "none", md: "flex" } }}
-            >
-              Sunrise Dental Clinic
-            </Typography>
+            {/* Desktop Logo & Title Wrapper */}
+            <Box sx={{ ml: 2, display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.5 }}>
+              <IconButton 
+                  color="inherit" aria-label="Sunrise Dental Clinic Home" edge="start" sx={{ p: 0 }}
+                  onClick={handleHome}
+                >
+                <SunriseIcon color="primary" />
+              </IconButton>
+              <Typography
+                variant="h5"
+                noWrap
+                component="div"
+                onClick={handleHome}
+                sx={{ 
+                  display: { xs: "none", md: "flex" }, 
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease-in-out',
+                  '&:hover': { 
+                    color: 'primary.main',
+                  }
+                }}
+              >
+                Sunrise Dental Clinic
+              </Typography>
+       
+            </Box>
 
-            {/* Mobile Logo */}
-            <Typography
-              variant="h6"
-              fontSize={12}
-              noWrap
-              component="div"
-              sx={{ ml: 2, flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              Sunrise Dental Clinic
-            </Typography>
+            {/* Mobile Logo & Title Wrapper */}
+            <Box sx={{ ml: 2, display: { xs: "flex", md: "none" }, alignItems: "center", gap: 1, flexGrow: 1 }}>
+              <IconButton 
+                  color="inherit" aria-label="Sunrise Dental Clinic Home" edge="start" sx={{ p: 0 }}
+                  onClick={handleHome}
+                >
+                <SunriseIcon color="primary" />
+              </IconButton>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                onClick={handleHome}
+                sx={{ 
+                  ml: 2,
+                  flexGrow: 1,
+                  display: { xs: "flex", md: "none" }, 
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease-in-out',
+                  '&:hover': { 
+                    color: 'primary.main',
+                  }
+                }}
+              >
+                Sunrise Dental Clinic
+              </Typography>
+            </Box>
 
             {/* Spacer (Desktop only) */}
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }} />
